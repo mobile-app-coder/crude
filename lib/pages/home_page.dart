@@ -1,7 +1,9 @@
+import 'package:crude/pages/create_post_page.dart';
 import 'package:crude/services/http_service.dart';
 import 'package:flutter/material.dart';
 
 import '../models/post_model.dart';
+import '../views/item_post.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -42,42 +44,24 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) {
+            return CreatePostPage();
+          }));
+        },
+        child: Icon(Icons.add),
       ),
       appBar: AppBar(
         title: Text("Post crud"),
-        elevation:10,
+        elevation: 10,
       ),
       body: ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) {
-          return itemOfPost(list[index]);
+          //return itemOfPost(list[index]);
+          return slidableItemOfPost(list[index]);
         },
-      ),
-    );
-  }
-
-  Widget itemOfPost(PostModel model) {
-    return Container(
-      margin: EdgeInsets.all(5),
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 2),
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      width: double.infinity,
-      height: 300,
-      padding: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Text(
-            model.title,
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-          Expanded(
-              child: Text(
-            model.body,
-            style: TextStyle(fontSize: 20),
-          ))
-        ],
       ),
     );
   }

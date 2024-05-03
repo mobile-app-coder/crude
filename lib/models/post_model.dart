@@ -7,13 +7,13 @@ String postModelToJson(List<PostModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class PostModel {
-  int userId = 1;
+  int? userId = 1;
   int? id;
   String title;
   String body;
 
   PostModel({
-    required this.userId,
+    this.userId,
     this.id,
     required this.title,
     required this.body,
