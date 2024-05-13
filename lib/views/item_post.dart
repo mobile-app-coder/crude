@@ -1,4 +1,4 @@
-import 'package:crude/pages/update_page.dart';
+import 'package:crude/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -29,7 +29,7 @@ Widget itemOfPost(PostModel model) {
   );
 }
 
-Widget slidableItemOfPost(PostModel model) {
+Widget slidableItemOfPost(PostModel model, HomeBloc bloc) {
   //final controller = SlidableController();
   return Slidable(
     // Specify a key if the Slidable is dismissible.
@@ -47,9 +47,7 @@ Widget slidableItemOfPost(PostModel model) {
       children: [
         // A SlidableAction can have an icon and/or a label.
         SlidableAction(
-          onPressed: (context) {
-
-          },
+          onPressed: (context) {},
           backgroundColor: Color(0xFFFE4A49),
           foregroundColor: Colors.white,
           icon: Icons.delete,
@@ -59,7 +57,7 @@ Widget slidableItemOfPost(PostModel model) {
     ),
 
     // The end action pane is the one at the right or the bottom side.
-    endActionPane:  ActionPane(
+    endActionPane: ActionPane(
       motion: ScrollMotion(),
       children: [
         SlidableAction(
@@ -67,10 +65,8 @@ Widget slidableItemOfPost(PostModel model) {
           foregroundColor: Colors.white,
           icon: Icons.edit,
           label: 'Edit',
-          onPressed: (context){
-            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext ctx) {
-              return UpdatePage(model: model);
-            }));
+          onPressed: (context) {
+            bloc.callUpdatePage(context, model);
           },
         ),
       ],
@@ -81,5 +77,3 @@ Widget slidableItemOfPost(PostModel model) {
     child: itemOfPost(model),
   );
 }
-
-
